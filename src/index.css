@@ -65,6 +65,75 @@
     --ring: 212.7 26.8% 83.9%;
   }
 }
+
+@layer base {
+  .tiptap {
+    padding: 1rem;
+    min-height: 200px;
+  }
+  
+  .tiptap {
+    > * + * {
+      margin-top: 0.75em;
+    }
+  
+    ul,
+    ol {
+      padding: 0 1rem;
+      list-style: circle;
+    }
+
+    h1 {
+      @apply text-4xl;
+    }
+  
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.1;
+    }
+  
+    code {
+      background-color: rgba(#616161, 0.1);
+      color: #616161;
+    }
+  
+    pre {
+      background: #0D0D0D;
+      color: #FFF;
+      font-family: 'JetBrainsMono', monospace;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+  
+      code {
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
+      }
+    }
+  
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  
+    blockquote {
+      padding-left: 1rem;
+      @apply border-s-8;
+    }
+  
+    hr {
+      border: none;
+      @apply border-t-8;
+      margin: 2rem 0;
+    }
+  }
+}
+
  
 @layer base {
   * {
