@@ -15,6 +15,7 @@ import { SignIn } from "@/routes/sign-in"
 import { SignUp } from "@/routes/sign-up"
 import { WriteBlog } from "@/routes/write-blog"
 import { ReadBlog } from "@/routes/read-blog"
+import { Toaster } from "sonner"
 
 const container = document.getElementById("root")
 
@@ -66,6 +67,7 @@ if (container) {
     <React.StrictMode>
       <Provider store={store}>
         <RouterProvider router={router} />
+        <Toaster />
       </Provider>
     </React.StrictMode>,
   )
