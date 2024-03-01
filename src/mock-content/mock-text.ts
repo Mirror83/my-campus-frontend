@@ -1,4 +1,4 @@
-export const blogPlaceholder: string = `
+export const blogPlaceholderContent: string = `
 <h2>
   Hi there,
 </h2>
