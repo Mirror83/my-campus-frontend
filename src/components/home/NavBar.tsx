@@ -23,7 +23,7 @@ export function NavBar() {
               <Link to={`#`}>Sign up</Link>
             </li>
             <li>
-              <Link to={`#`}>Login</Link>
+              <Link to={`sign-in`}>Sign in</Link>
             </li>
             <li>
               <Link to={`#`}>About us</Link>
