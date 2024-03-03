@@ -37,6 +37,7 @@ function BlogCard({ blog }: BlogCardProps) {
           {blog.topics.map(topic => (
             <Link
               className={cn("me-2", badgeVariants({ variant: "secondary" }))}
+              key={topic}
               to={""}
             >
               {topic}
