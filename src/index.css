@@ -66,80 +66,16 @@
   }
 }
 
-.tiptap {
-  padding: 1rem;
-  min-height: 200px;
-
-  p {
-    font-size: 1.2rem;
+@media (min-width: 651px) {
+  .ce-block__content,
+  .ce-toolbar__content {
+    max-width: 100% !important;
+    margin: 0 60px;
   }
+}
 
-  > * + * {
-    margin-top: 0.75em;
-  }
-
-  ul,
-  ol {
-    padding: 0 1rem;
-    list-style: circle;
-  }
-
-  h1 {
-    font-size: 3rem;
-  }
-
-  h2 {
-    font-size: 2.25rem;
-  }
-
-  h3 {
-    font-size: 1.875rem;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: 1.1;
-  }
-
-  code {
-    background-color: rgba(#616161, 0.1);
-    color: #616161;
-  }
-
-  pre {
-    background: #0d0d0d;
-    color: #fff;
-    font-family: "JetBrainsMono", monospace;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-
-    code {
-      color: inherit;
-      padding: 0;
-      background: none;
-      font-size: 0.8rem;
-    }
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  blockquote {
-    padding-left: 1rem;
-    @apply border-s-8;
-  }
-
-  hr {
-    border: none;
-    @apply border-t-8;
-    margin: 2rem 0;
-  }
+.cdx-block {
+  max-width: 100% !important;
 }
 
 @layer base {

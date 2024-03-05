@@ -16,6 +16,7 @@ import { SignUp } from "@/routes/sign-up"
 import { WriteBlog } from "@/routes/write-blog"
 import { ReadBlog } from "@/routes/read-blog"
 import { Toaster } from "sonner"
+import { AuthProvider } from "./context/AuthProvider"
 
 const container = document.getElementById("root")
 
@@ -66,8 +67,10 @@ if (container) {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <RouterProvider router={router} />
-        <Toaster />
+        <AuthProvider>
+          <RouterProvider router={router} />
+          <Toaster />
+        </AuthProvider>
       </Provider>
     </React.StrictMode>,
   )
