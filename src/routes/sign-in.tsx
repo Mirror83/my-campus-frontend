@@ -1,4 +1,5 @@
 import GraduationCapIcon from "@/components/home/GraduationCapIcon"
+import { Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -20,44 +21,50 @@ import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useNavigate } from "react-router"
-import { Link } from "react-router-dom"
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  redirect,
+  useNavigate,
+} from "react-router"
+import { Link, useSubmit } from "react-router-dom"
+import { useSignIn } from "@/hooks"
+import { toast } from "sonner"
+import { useAppSelector } from "@/app/hook"
+import { useEffect } from "react"
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters long",
-  }),
+  email: z.string().email(),
   password: z.string().min(8, {
-    message: "Username must be at least 8 characters long",
+    message: "Password must be at least 8 characters long",
   }),
 })
-
-// Styles that can be placed on the black box div to insert an image.
-// Too bad the image I chose does not blend with the colours currently present
-// Credit: Photo by <a href="https://unsplash.com/@von_co?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Ivana Cajina</a> on <a href="https://unsplash.com/photos/smiling-woman-wearing-gray-hoodie-dnL6ZIpht2s?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-// const possibleBgImage = {
-//   backgroundImage: "url(images/ivana-cajina-dnL6ZIpht2s-unsplash.jpg)",
-//   backgroundRepeat: "no-repeat",
-//   backgroundSize: "cover"
-// }
 
 export function SignIn() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   })
 
   const navigate = useNavigate()
 
+  const { signInUser, isLoading } = useSignIn()
+  const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated)
+
   function onSubmit(formValues: z.infer<typeof formSchema>) {
     console.log(formValues)
-    // Sign-in logic will be carried out by React Router action for this page
-    // Will have to use submit instead of navigate
-    navigate("/")
+    signInUser(formValues)
   }
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      navigate("/")
+      toast.success("You have successfully signed in.")
+    }
+  }, [isAuthenticated, navigate])
 
   return (
     <div className={"grid h-[100vh] grid-cols-[2fr_3fr]"}>
@@ -79,10 +86,10 @@ export function SignIn() {
                 <div className="flex flex-col gap-2 mb-4">
                   <FormField
                     control={form.control}
-                    name="username"
+                    name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Username</FormLabel>
+                        <FormLabel>Email</FormLabel>
                         <FormControl>
                           <Input placeholder="mycampus" {...field} />
                         </FormControl>
@@ -107,7 +114,14 @@ export function SignIn() {
                     )}
                   />
                 </div>
-                <Button>Sign in</Button>
+                {isLoading ? (
+                  <Button disabled>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Please wait
+                  </Button>
+                ) : (
+                  <Button>Sign in</Button>
+                )}
               </form>
             </Form>
           </CardContent>
