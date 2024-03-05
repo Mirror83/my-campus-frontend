@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/app/hook"
 import GraduationCapIcon from "@/components/home/GraduationCapIcon"
 import { Button } from "@/components/ui/button"
 import {
@@ -17,18 +18,17 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useSignUp } from "@/hooks"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { z } from "zod"
 
 // The naming convention used by the server is snake case
 // I know, it brings a lot of confusion 😂.
 const formSchema = z.object({
-  email: z
-    .string()
-    .regex(new RegExp("/^[A-Za-z0-9._%-]+@students.jkuat.ac.ke$/"), {
-      message: "The email must be a JKUAT student email.",
-    }),
+  email: z.string().email(),
   // Find a way to make the names into title case (or let the server do it)
   first_name: z.string().min(2, {
     message: "First name should be at least 2 characters long",
@@ -48,16 +48,26 @@ const formSchema = z.object({
   }),
 })
 
+export type FormUser = z.infer<typeof formSchema>
+
 // TODO: Store the layout that this shares with the sign-in page
 //       and use that as a root layout for both to reduce duplication
 export function SignUp() {
-  const form = useForm<z.infer<typeof formSchema>>()
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  })
+  const { signUpUser, isLoading } = useSignUp()
+  const user = useAppSelector(state => state.auth.user)
+  const navigate = useNavigate()
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-    // Same as in SignIn, handle submission using the action for this route
-    // Will probably move to the next step
+  function onSubmit(formValues: z.infer<typeof formSchema>) {
+    console.log(formValues)
+    signUpUser(formValues)
   }
+
+  useEffect(() => {
+    if (user) navigate("/sign-in")
+  }, [user, navigate])
 
   return (
     <div className={"grid h-[100vh] grid-cols-[2fr_3fr]"}>

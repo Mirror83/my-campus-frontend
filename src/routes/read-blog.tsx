@@ -1,7 +1,7 @@
 import ReadOnlyEditor from "@/components/editor/ReadOnlyEditor"
-import { blogPlaceholderContent, welcomePost } from "@/mock-content/mock-text"
+import { welcomePost } from "@/mock-content/mock-text"
 import {
-  CommentData,
+  type CommentData,
   CommentsSection,
 } from "@/components/comments/CommentsSection"
 import { BlogPostMetaData } from "@/components/blog-post/BlogPostMetaData"
