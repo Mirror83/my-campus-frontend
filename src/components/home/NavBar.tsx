@@ -20,7 +20,7 @@ export function NavBar() {
         <nav className="me-8">
           <ul className="flex gap-4 underline">
             <li>
-              <Link to={`#`}>Sign up</Link>
+              <Link to={`sign-up`}>Sign up</Link>
             </li>
             <li>
               <Link to={`sign-in`}>Sign in</Link>
