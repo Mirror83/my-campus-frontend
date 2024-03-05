@@ -10,10 +10,10 @@ interface UserCreate {
 }
 
 export const signUp = createAsyncThunk(
-    "auth/signIn",
+    "auth/signUp",
     async (user: UserCreate, thunkAPI) => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/users/", {
+            const response = await fetch("http://localhost:8000/api/v2/users/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -33,7 +33,7 @@ export const signUp = createAsyncThunk(
 )
 
 interface UserLogin {
-    username: string;
+    email: string;
     password: string;
 }
 
@@ -111,7 +111,7 @@ export const getUser = createAsyncThunk(
     "auth/getUser",
     async (token: string, thunkAPI) => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/users/me/", {
+            const response = await fetch("http://127.0.0.1:8000/api/v2/users/me/", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -119,6 +119,7 @@ export const getUser = createAsyncThunk(
                 }
             });
             const data = await response.json();
+
             if (response.ok) {
                 return data;
             } else {
