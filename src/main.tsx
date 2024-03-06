@@ -16,6 +16,7 @@ import { SignUp } from "@/routes/sign-up"
 import { WriteBlog } from "@/routes/write-blog"
 import { ReadBlog } from "@/routes/read-blog"
 import { Toaster } from "sonner"
+import { RequireAuth } from "./routes/require-auth"
 
 const container = document.getElementById("root")
 
@@ -36,8 +37,17 @@ const router = createBrowserRouter([
         element: <Notifications />,
       },
       {
-        path: "/profile",
-        element: <Profile />,
+        element: <RequireAuth />,
+        children: [
+          {
+            path: "/profile",
+            element: <Profile />,
+          },
+          {
+            path: "/write-blog",
+            element: <WriteBlog />,
+          },
+        ],
       },
       {
         path: "/sign-in",
@@ -46,10 +56,6 @@ const router = createBrowserRouter([
       {
         path: "/sign-up",
         element: <SignUp />,
-      },
-      {
-        path: "/write-blog",
-        element: <WriteBlog />,
       },
       {
         path: "/read-blog",
