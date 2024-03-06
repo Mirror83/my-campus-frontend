@@ -1,7 +1,12 @@
-import EditorJS, { OutputData } from "@editorjs/editorjs"
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-var-requires */
+/** eslint-disable  @typescript-eslint/no-implicit-any
+ */
 
-// eslint-disable-next-line  @typescript-eslint/no-implicit-any
-import { EDITOR_JS_TOOLS } from "./new-editor-tools"
+import type { OutputData } from "@editorjs/editorjs"
+import EditorJS from "@editorjs/editorjs"
+
+import { EDITOR_JS_TOOLS } from "./editor-tools"
 import { memo, useEffect, useRef } from "react"
 
 //props
@@ -21,7 +26,6 @@ const EditorBlock = ({ data, onChange, holder }: Props) => {
     if (!ref.current) {
       const editor = new EditorJS({
         holder: holder,
-        // eslint-disable-next-line
         tools: EDITOR_JS_TOOLS,
         data,
         async onChange(api, event) {

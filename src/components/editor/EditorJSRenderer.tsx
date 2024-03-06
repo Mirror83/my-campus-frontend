@@ -1,7 +1,8 @@
-import EditorJS, { OutputData } from "@editorjs/editorjs"
+import type { OutputData } from "@editorjs/editorjs"
+import EditorJS from "@editorjs/editorjs"
 
 import { useRef, useEffect } from "react"
-import { EDITOR_JS_TOOLS } from "./new-editor-tools"
+import { EDITOR_JS_TOOLS } from "./editor-tools"
 
 type Props = {
   data: OutputData
@@ -32,7 +33,7 @@ const EditorJSRenderer = ({ data, holder }: Props) => {
         ref.current.destroy()
       }
     }
-  }, [])
+  }, [data, holder])
 
   return (
     <div className="prose">

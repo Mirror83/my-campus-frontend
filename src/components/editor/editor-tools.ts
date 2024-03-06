@@ -1,4 +1,6 @@
-// tools.js
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 import Image from "@editorjs/image"
 import Header from "@editorjs/header"
 import List from "@editorjs/list" 
