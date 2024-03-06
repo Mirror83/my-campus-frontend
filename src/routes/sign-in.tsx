@@ -105,6 +105,7 @@ export function SignIn() {
                         <FormLabel>Password</FormLabel>
                         <FormControl>
                           <Input
+                            type="password"
                             placeholder="nic#e*a45nd@se   c?UR )"
                             {...field}
                           />

@@ -155,6 +155,7 @@ export function SignUp() {
                         <FormLabel>Password</FormLabel>
                         <FormControl>
                           <Input
+                            type="password"
                             placeholder="nic#e*a45nd@se   c?UR )"
                             {...field}
                           />
@@ -171,6 +172,7 @@ export function SignUp() {
                         <FormLabel>Confirm password</FormLabel>
                         <FormControl>
                           <Input
+                            type="password"
                             placeholder="nic#e*a45nd@se   c?UR )"
                             {...field}
                           />
