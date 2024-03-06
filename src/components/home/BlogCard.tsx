@@ -12,7 +12,7 @@ interface BlogCardProps {
 // TODO: Include topics in the design
 function BlogCard({ blog }: BlogCardProps) {
   return (
-    <div className="grid p-2 border-none bg-red-100 rounded-sm">
+    <div className="grid p-2 outline-1 outline rounded-sm">
       {/**Image */}
       {/* <div className="w-[100px] h-[100px] bg-black rounded-sm"></div> */}
 
