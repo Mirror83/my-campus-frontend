@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { signUp, getUser, signIn, refreshToken, verifyToken } from "./features/authActions";
 
-type user = {
+export type user = {
     username: string;
     email: string;
     first_name: string;
     last_name: string;
     topics: string[];
+    followers: number;
+    following: number
 };
 
 type authState = {
