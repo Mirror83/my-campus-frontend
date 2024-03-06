@@ -1,21 +1,9 @@
-import {
-  type CommentData,
-  CommentsSection,
-} from "@/components/comments/CommentsSection"
-import { BlogPostMetaData } from "@/components/blog-post/BlogPostMetaData"
-import EditorJsRenderer from "@/components/editor/EditorJSRenderer"
-import { OutputData } from "@editorjs/editorjs"
+import type { OutputData } from "@editorjs/editorjs"
 import EditorJSRenderer from "@/components/editor/EditorJSRenderer"
 import { NavBar } from "@/components/home/NavBar"
 
 export function ReadBlog() {
-  const comments: CommentData[] = [
-    {
-      content: "Nice story",
-      userImage: "",
-      userName: "tom_cat",
-    },
-  ] // Should be intialized with actual data
+  // Test with comment data
 
   const data: OutputData = {
     time: 1550476186479,

@@ -56,7 +56,7 @@ export function SignUp() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
-  const { signUpUser, isLoading } = useSignUp()
+  const { signUpUser } = useSignUp()
   const user = useAppSelector(state => state.auth.user)
   const navigate = useNavigate()
 

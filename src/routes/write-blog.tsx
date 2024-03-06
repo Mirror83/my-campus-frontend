@@ -1,7 +1,7 @@
 //index.tsx
-import { OutputData } from "@editorjs/editorjs"
+import type { OutputData } from "@editorjs/editorjs"
 import { useState } from "react"
-import EditorBlock from "@/components/editor/new-editor"
+import EditorBlock from "@/components/editor/editor"
 import { NavBar } from "@/components/home/NavBar"
 import { blogPlaceholder } from "@/mock-content/mock-text"
 import { Button } from "@/components/ui/button"

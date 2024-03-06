@@ -1,4 +1,4 @@
-import { Blog } from "@/interfaces/blog";
+import type { Blog } from "@/interfaces/blog";
 
 /** This file will store all the blog preview used for the current dummy version of the home page */
 export const mockBlogList: Blog[] = [

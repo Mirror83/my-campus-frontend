@@ -1,4 +1,4 @@
-export default () => {
+export default function GraduationCap() {
   return (
     <svg
       width="59"

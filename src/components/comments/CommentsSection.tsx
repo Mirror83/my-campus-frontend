@@ -36,7 +36,7 @@ export function CommentsSection({ comments }: CommentSectionProps) {
       <div className="mt-4">
         <p className="text-sm text-gray-600">
           {commentElements.length}{" "}
-          {comments.length == 1 ? "comment" : "comments"}
+          {comments.length === 1 ? "comment" : "comments"}
         </p>
         {commentElements}
       </div>

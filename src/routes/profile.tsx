@@ -1,12 +1,13 @@
 import { useAppSelector } from "@/app/hook"
-import { user } from "@/app/services/authSlice"
+import type { user } from "@/app/services/authSlice"
 import { AuthorAvatar } from "@/components/blog-post/AuthorAvatar"
 import { MyPosts } from "@/components/profile/MyPostsTab"
 import { Button } from "@/components/ui/button"
-import { Blog } from "@/interfaces/blog"
+import type { Blog } from "@/interfaces/blog"
 import { cn } from "@/lib/utils"
 import { ArrowLeftIcon } from "@radix-ui/react-icons"
-import { ArrowBigLeft, Loader2 } from "lucide-react"
+import { stat } from "fs"
+import { Loader2 } from "lucide-react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -17,7 +18,8 @@ enum ProfilePageTabs {
 }
 
 export function Profile() {
-  const { user, isLoading } = useAppSelector(state => state.auth)
+  const { isAuthenticated, isLoading } = useAppSelector(state => state.auth)
+  const { user } = useAppSelector(state => state.auth)
   const [activeTab, setActiveTab] = useState(ProfilePageTabs.MyPosts)
 
   function changeTab(tab: ProfilePageTabs) {
@@ -103,7 +105,7 @@ function TabActivator({ tab, currentTab, onChangeTab }: TabActivatorProps) {
   return (
     <Button
       variant={"ghost"}
-      className={cn(currentTab == tab && "font-bold border-b-4 border-black")}
+      className={cn(currentTab === tab && "font-bold border-b-4 border-black")}
       onClick={() => onChangeTab(tab)}
     >
       {tab.valueOf()}

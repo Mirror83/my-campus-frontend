@@ -2,7 +2,8 @@ import { AuthorAvatar } from "../blog-post/AuthorAvatar"
 import GraduationCapIcon from "./GraduationCapIcon"
 import { Link } from "react-router-dom"
 import { useAppSelector, useAppDispatch } from "@/app/hook"
-import { logout, user } from "@/app/services/authSlice"
+import type { user } from "@/app/services/authSlice"
+import { logout } from "@/app/services/authSlice"
 import { Button } from "../ui/button"
 import { cn } from "@/lib/utils"
 import { Loader2 } from "lucide-react"
@@ -14,7 +15,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { User } from "@/interfaces/user"
 
 interface NavBarProps {
   className?: string
@@ -94,7 +94,7 @@ export function NavBar({ className }: NavBarProps) {
 type Props = {
   user: user
 }
-export function UserDropDown({ user: user }: Props) {
+export function UserDropDown({ user }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>

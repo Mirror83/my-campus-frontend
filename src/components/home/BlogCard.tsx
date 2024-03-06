@@ -1,4 +1,4 @@
-import { Blog } from "@/interfaces/blog"
+import type { Blog } from "@/interfaces/blog"
 import { AuthorAvatar } from "../blog-post/AuthorAvatar"
 import { Link } from "react-router-dom"
 import { badgeVariants } from "../ui/badge"
