@@ -1,8 +1,5 @@
+import { BASE_URL } from "@/constants";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-
-
-const BASE_URL = import.meta.env.VITE_DJANGO_BASE_URL;
 
 
 interface UserCreate {
