@@ -10,16 +10,14 @@ type Props = {
 }
 
 const EditorJSRenderer = ({ data, holder }: Props) => {
-  //add a reference to editor
   const ref = useRef<EditorJS>()
 
-  //initialize editorjs
+  // Initialize editorjs with some initial data
+  // and the read-only property it set to true
   useEffect(() => {
-    //initialize editor if we don't have a reference
     if (!ref.current) {
       const editor = new EditorJS({
         holder: holder,
-        // eslint-disable-next-line
         tools: EDITOR_JS_TOOLS,
         data,
         readOnly: true,
@@ -27,7 +25,6 @@ const EditorJSRenderer = ({ data, holder }: Props) => {
       ref.current = editor
     }
 
-    //add a return function handle cleanup
     return () => {
       if (ref.current && ref.current.destroy) {
         ref.current.destroy()
