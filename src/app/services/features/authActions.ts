@@ -1,5 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+
+
+const BASE_URL = import.meta.env.VITE_DJANGO_BASE_URL;
+
+
 interface UserCreate {
     username: string;
     email: string;
@@ -13,7 +18,7 @@ export const signUp = createAsyncThunk(
     "auth/signUp",
     async (user: UserCreate, thunkAPI) => {
         try {
-            const response = await fetch("http://localhost:8000/api/v2/users/", {
+            const response = await fetch(`${BASE_URL}api/v2/users/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -41,7 +46,7 @@ export const signIn = createAsyncThunk(
     "auth/signIn",
     async (user: UserLogin, thunkAPI) => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/auth/jwt/create/", {
+            const response = await fetch(`${BASE_URL}api/v1/auth/jwt/create/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -65,7 +70,7 @@ export const verifyToken = createAsyncThunk(
     "auth/verifyToken",
     async (token: string, thunkAPI) => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/auth/jwt/verify/", {
+            const response = await fetch(`${BASE_URL}api/v1/auth/jwt/verify/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -88,7 +93,7 @@ export const refreshToken = createAsyncThunk(
     "auth/refreshToken",
     async (refresh: string, thunkAPI) => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/auth/jwt/refresh/", {
+            const response = await fetch(`${BASE_URL}api/v1/auth/jwt/refresh/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -111,7 +116,7 @@ export const getUser = createAsyncThunk(
     "auth/getUser",
     async (token: string, thunkAPI) => {
         try {
-            const response = await fetch("http://127.0.0.1:8000/api/v2/users/me/", {
+            const response = await fetch(`${BASE_URL}api/v2/users/me/`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
