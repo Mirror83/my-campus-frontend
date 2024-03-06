@@ -1,15 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/** eslint-disable  @typescript-eslint/no-implicit-any
- */
+// @ts-ignore
+import Header from "@editorjs/header"
+// @ts-ignore
+import Image from "@editorjs/image"
+// @ts-ignore
+import List from "@editorjs/list"
 
 import type { OutputData } from "@editorjs/editorjs"
 import EditorJS from "@editorjs/editorjs"
 
-import { EDITOR_JS_TOOLS } from "./editor-tools"
 import { memo, useEffect, useRef } from "react"
+import { BASE_URL } from "@/constants"
 
-//props
 type Props = {
   data?: OutputData
   onChange(val: OutputData): void
@@ -17,16 +18,30 @@ type Props = {
 }
 
 const EditorBlock = ({ data, onChange, holder }: Props) => {
-  //add a reference to editor
   const ref = useRef<EditorJS>()
 
-  //initialize editorjs
+  // Initialize editorjs
   useEffect(() => {
-    //initialize editor if we don't have a reference
+    // Added tools here so that I can get the value of the access token from
+    // localstorage from when the component is mounted.
     if (!ref.current) {
       const editor = new EditorJS({
         holder: holder,
-        tools: EDITOR_JS_TOOLS,
+        tools: {
+          header: Header,
+          list: List,
+          image: {
+            class: Image,
+            config: {
+              endpoints: {
+                byFile: `${BASE_URL}api/v1/image/upload`,
+              },
+              additionalRequestHeaders: {
+                authorization: `JWT ${localStorage.getItem("access" ?? "")}`,
+              },
+            },
+          },
+        },
         data,
         async onChange(api, event) {
           const data = await api.saver.save()
@@ -36,7 +51,6 @@ const EditorBlock = ({ data, onChange, holder }: Props) => {
       ref.current = editor
     }
 
-    //add a return function handle cleanup
     return () => {
       if (ref.current && ref.current.destroy) {
         ref.current.destroy()
