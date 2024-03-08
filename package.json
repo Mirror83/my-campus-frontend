@@ -35,6 +35,7 @@
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "cmdk": "^1.0.0",
     "editorjs-html": "^3.4.3",
     "lucide-react": "^0.344.0",
     "next-themes": "^0.2.1",
