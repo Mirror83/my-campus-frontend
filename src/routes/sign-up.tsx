@@ -30,15 +30,24 @@ import { z } from "zod"
 const formSchema = z.object({
   email: z.string().email(),
   // Find a way to make the names into title case (or let the server do it)
-  first_name: z.string().min(2, {
-    message: "First name should be at least 2 characters long",
-  }),
-  last_name: z.string().min(2, {
-    message: "Last name should be at least 2 characters long",
-  }),
-  username: z.string().min(2, {
-    message: "A username must be at least 2 characters long",
-  }),
+  first_name: z
+    .string()
+    .min(2, {
+      message: "First name should be at least 2 characters long",
+    })
+    .trim(),
+  last_name: z
+    .string()
+    .min(2, {
+      message: "Last name should be at least 2 characters long",
+    })
+    .trim(),
+  username: z
+    .string()
+    .min(2, {
+      message: "A username must be at least 2 characters long",
+    })
+    .trim(),
   password: z.string().min(8, {
     message: "Your password must be at least 8 characters long",
   }),
