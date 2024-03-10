@@ -3,6 +3,9 @@ MyCampus is a platform that makes it easy for students to find and interact with
 
 This is the front end of the website and it is created using React, RTK(Redux Toolkit), shad-cn, and React Router. The repository was created using the redux template for Vite.
 
+## Project status
+Still in **development**
+
 ## Scripts
 
 - `dev`/`start` - start the development server and open the website on a browser
