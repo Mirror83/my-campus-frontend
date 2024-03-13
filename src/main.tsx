@@ -14,9 +14,13 @@ import { Profile } from "@/routes/profile"
 import { SignIn } from "@/routes/sign-in"
 import { SignUp } from "@/routes/sign-up"
 import { WriteBlog } from "@/routes/write-blog"
-import { ReadBlog } from "@/routes/read-blog"
+import { ReadBlog, loader as readLoader } from "@/routes/read-blog"
 import { Toaster } from "sonner"
 import { RequireAuth } from "./routes/require-auth"
+import Comments, {
+  loader as commentsLoader,
+  action as commentsAction,
+} from "./routes/comments"
 
 const container = document.getElementById("root")
 
@@ -58,8 +62,18 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "/read-blog",
+        path: "/read-blog/:blogSlug",
         element: <ReadBlog />,
+        loader: readLoader,
+        children: [
+          {
+            index: true,
+            element: <Comments />,
+            loader: commentsLoader,
+            action: commentsAction,
+            // errorElement: <div>Error getting comments</div>,
+          },
+        ],
       },
     ],
     errorElement: <ErrorPage />,
