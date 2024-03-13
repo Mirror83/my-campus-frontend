@@ -6,6 +6,7 @@ interface BlogPostMetaDataProps {
   dateCreated: string
   totalComments: number
   totalLikes: number
+  className?: string
 }
 
 export function BlogPostMetaData({
@@ -13,10 +14,11 @@ export function BlogPostMetaData({
   dateCreated,
   totalComments,
   totalLikes,
+  className,
 }: BlogPostMetaDataProps) {
   return (
-    <>
-      <div className="flex gap-4 py-4 items-center text-sm">
+    <div className={className}>
+      <div className="flex gap-4 py-2 items-center text-sm">
         <AuthorAvatar src="https://github.com/shadcn.png" authorName="shadcn" />
         <strong>{authorName}</strong>
         <em>{dateCreated}</em>
@@ -31,6 +33,6 @@ export function BlogPostMetaData({
           <em>{totalLikes}</em>
         </div>
       </div>
-    </>
+    </div>
   )
 }
