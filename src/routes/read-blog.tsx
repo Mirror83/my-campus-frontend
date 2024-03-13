@@ -1,73 +1,95 @@
-import type { OutputData } from "@editorjs/editorjs"
 import EditorJSRenderer from "@/components/editor/EditorJSRenderer"
-import { NavBar } from "@/components/home/NavBar"
+import { BlogPostMetaData } from "@/components/blog-post/BlogPostMetaData"
+import { LoaderFunctionArgs, Outlet, useLoaderData } from "react-router"
+import { OutputData } from "@editorjs/editorjs"
+
+type ReceivedBlog = {
+  id: number
+  title: string
+  slug: string
+  updatedAt: string
+  createdAt: string
+  authorType: string
+  author_username: string
+  content: OutputData
+}
+
+export async function loader({ params }: LoaderFunctionArgs) {
+  /** To be modified to call for data from backend using the slug in the url */
+  const blogSlug = params.blogSlug
+  const blog = {
+    id: 1,
+    title: "Ready, set, go...where?",
+    slug: "",
+    updatedAt: "2024-03-08 06:13:07.230597",
+    createdAt: "2024-03-08 06:13:07.230597",
+    authorType: "user",
+    author_username: "jb",
+    content: {
+      time: 1709878318412,
+      blocks: [
+        {
+          id: "oUq2g_tl8y",
+          type: "header",
+          data: { text: "Ready, set, go...where?", level: 1 },
+        },
+        {
+          id: "zbGZFPM-iI",
+          type: "paragraph",
+          data: {
+            text: "This is my first blog post and I am wondering what I am going to say from now own. But I think that I should just start and say something to get the momentum going.",
+          },
+        },
+        {
+          id: "AmbsAVu3vl",
+          type: "image",
+          data: {
+            file: {
+              url: "http://localhost:8000/media/blog/images/Sample1.png",
+            },
+            caption: "Sprite-sheet for a soccer game",
+            withBorder: false,
+            stretched: false,
+            withBackground: false,
+          },
+        },
+        {
+          id: "0i5Bd0qjBY",
+          type: "header",
+          data: { text: "Premise", level: 2 },
+        },
+        {
+          id: "uw1wSooZCy",
+          type: "paragraph",
+          data: {
+            text: "I know that this is not the image we are expecting to see.",
+          },
+        },
+      ],
+      version: "2.29.0",
+    },
+  }
+
+  return { blog }
+}
 
 export function ReadBlog() {
   // Test with comment data
-
-  const data: OutputData = {
-    time: 1550476186479,
-    blocks: [
-      {
-        id: "oUq2g_tl8y",
-        type: "header",
-        data: {
-          text: "Editor.js",
-          level: 2,
-        },
-      },
-      {
-        id: "zbGZFPM-iI",
-        type: "paragraph",
-        data: {
-          text: "Hey. Meet the new Editor. On this page you can see it in action — try to edit this text. Source code of the page contains the example of connection and configuration.",
-        },
-      },
-      {
-        id: "qYIGsjS5rt",
-        type: "header",
-        data: {
-          text: "Key features",
-          level: 3,
-        },
-      },
-      {
-        id: "XV87kJS_H1",
-        type: "list",
-        data: {
-          style: "unordered",
-          items: [
-            "It is a block-styled editor",
-            "It returns clean data output in JSON",
-            "Designed to be extendable and pluggable with a simple API",
-          ],
-        },
-      },
-      {
-        id: "AOulAjL8XM",
-        type: "header",
-        data: {
-          text: "What does it mean «block-styled editor»",
-          level: 3,
-        },
-      },
-      {
-        id: "cyZjplMOZ0",
-        type: "paragraph",
-        data: {
-          text: 'Workspace in classic editors is made of a single contenteditable element, used to create different HTML markups. Editor.js <mark class="cdx-marker">workspace consists of separate Blocks: paragraphs, headings, images, lists, quotes, etc</mark>. Each of them is an independent contenteditable element (or more complex structure) provided by Plugin and united by Editor\'s Core.',
-        },
-      },
-    ],
-    version: "2.8.1",
+  const { blog } = useLoaderData() as {
+    blog: ReceivedBlog
   }
 
   return (
-    <div>
-      <NavBar />
-      <div className="mx-auto">
-        <EditorJSRenderer data={data} holder="editorjs-container" />
-      </div>
+    <div className="mx-auto">
+      <BlogPostMetaData
+        authorName={blog.author_username}
+        dateCreated={new Date(blog.createdAt).toDateString()}
+        totalComments={0}
+        totalLikes={0}
+        className="ms-8"
+      />
+      <EditorJSRenderer data={blog.content} holder="editorjs-container" />
+      <Outlet />
     </div>
   )
 }
