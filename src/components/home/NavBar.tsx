@@ -35,12 +35,12 @@ export function NavBar({ className }: NavBarProps) {
     <>
       <li>
         <Button variant={"link"}>
-          <Link to={`sign-up`}>Sign up</Link>
+          <Link to={`/sign-up`}>Sign up</Link>
         </Button>
       </li>
       <li>
         <Button variant={"link"}>
-          <Link to={`sign-in`}>Sign in</Link>
+          <Link to={`/sign-in`}>Sign in</Link>
         </Button>
       </li>
     </>
