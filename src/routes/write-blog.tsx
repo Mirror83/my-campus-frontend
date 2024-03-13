@@ -36,6 +36,7 @@ import { toast } from "sonner"
 import { useAppSelector } from "@/app/hook"
 import { Loader2Icon } from "lucide-react"
 import { useNavigate } from "react-router"
+import LoadingScreen from "@/components/loading-screen/LoadingScreen"
 
 export const WriteBlog = () => {
   const { user, isLoading } = useAppSelector(state => state.auth)
@@ -152,11 +153,7 @@ export const WriteBlog = () => {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex h-100vh w-100vw items-center justify-end">
-        Loading...
-      </div>
-    )
+    return <LoadingScreen />
   }
 
   return (
