@@ -45,7 +45,9 @@ export function Profile() {
                 className="h-[100px] w-[100px]"
               />
               <div>
-                <h2 className="text-3xl">{user?.username}</h2>
+                <h2 className="text-3xl">
+                  {user?.first_name} {user?.last_name}
+                </h2>
                 <small className="light text-sm text-gray-500">
                   {`@${user?.username}`}
                 </small>
