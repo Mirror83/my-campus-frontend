@@ -9,7 +9,6 @@ type Props = {
 }
 
 export function MyPosts({ blogs }: Props) {
-  const blogElements = blogs.map((blog, i) => <BlogCard blog={blog} key={i} />)
   return (
     <div className="flex items-center justify-center min-h-[400px]">
       {blogs.length === 0 ? (
@@ -27,7 +26,11 @@ export function MyPosts({ blogs }: Props) {
           </div>
         </>
       ) : (
-        <div>{blogElements}</div>
+        <div>
+          {blogs.map((blog, i) => (
+            <BlogCard blog={blog} key={i} />
+          ))}
+        </div>
       )}
     </div>
   )
