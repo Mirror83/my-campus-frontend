@@ -15,12 +15,13 @@ import { useNavigate } from "react-router"
 import { useSignIn } from "@/hooks"
 import { toast } from "sonner"
 import { useAppSelector } from "@/app/hook"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import {
   SignInFormSchema,
   SignInFormValidator,
 } from "@/lib/validators/form-schema"
 import { AuthFormLayout } from "@/components/forms/AuthFormLayout"
+import { ShowPassword } from "@/components/forms/ShowPassword"
 
 export function SignIn() {
   return (
@@ -38,6 +39,12 @@ function SignInForm() {
       password: "",
     },
   })
+
+  const [showPassword, setShowPassword] = useState(false)
+
+  function togglePasswordVisibility() {
+    setShowPassword(prevState => !prevState)
+  }
 
   const navigate = useNavigate()
 
@@ -81,7 +88,7 @@ function SignInForm() {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="nic#e*a45nd@se   c?UR )"
                     {...field}
                   />
@@ -89,6 +96,10 @@ function SignInForm() {
                 <FormMessage />
               </FormItem>
             )}
+          />
+          <ShowPassword
+            showPassword={showPassword}
+            togglePasswordVisibility={togglePasswordVisibility}
           />
         </div>
         {isLoading ? (

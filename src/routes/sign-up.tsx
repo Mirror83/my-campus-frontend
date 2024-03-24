@@ -19,6 +19,7 @@ import {
   SignUpFormValidator,
 } from "@/lib/validators/form-schema"
 import { AuthFormLayout } from "@/components/forms/AuthFormLayout"
+import { ShowPassword } from "@/components/forms/ShowPassword"
 
 // TODO: Store the layout that this shares with the sign-in page
 //       and use that as a root layout for both to reduce duplication
@@ -122,7 +123,7 @@ function SignUpForm() {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="nic#e*a45nd@se   c?UR )"
                     {...field}
                   />
@@ -139,7 +140,7 @@ function SignUpForm() {
                 <FormLabel>Confirm password</FormLabel>
                 <FormControl>
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="nic#e*a45nd@se   c?UR )"
                     {...field}
                   />
@@ -147,6 +148,10 @@ function SignUpForm() {
                 <FormMessage />
               </FormItem>
             )}
+          />
+          <ShowPassword
+            showPassword={showPassword}
+            togglePasswordVisibility={togglePasswordVisibility}
           />
           <Button>Sign up</Button>
         </div>
