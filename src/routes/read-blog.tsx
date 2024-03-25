@@ -2,6 +2,8 @@ import EditorJSRenderer from "@/components/editor/EditorJSRenderer"
 import { BlogPostMetaData } from "@/components/blog-post/BlogPostMetaData"
 import { LoaderFunctionArgs, Outlet, useLoaderData } from "react-router"
 import { OutputData } from "@editorjs/editorjs"
+import ReadOnlyEditor from "@/components/editor/ReadOnlyEditor"
+import React from "react"
 
 type ReceivedBlog = {
   id: number
@@ -81,6 +83,7 @@ export function ReadBlog() {
 
   return (
     <div className="mx-auto">
+      <h1 className="px-8 pt-8 text-5xl">{blog.title}</h1>
       <BlogPostMetaData
         authorName={blog.author_username}
         dateCreated={new Date(blog.createdAt).toDateString()}
@@ -88,7 +91,7 @@ export function ReadBlog() {
         totalLikes={0}
         className="ms-8"
       />
-      <EditorJSRenderer data={blog.content} holder="editorjs-container" />
+      <ReadOnlyEditor data={blog.content} />
       <Outlet />
     </div>
   )
