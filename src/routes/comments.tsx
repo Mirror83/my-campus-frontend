@@ -6,11 +6,12 @@ import {
   LoaderFunctionArgs,
   useLoaderData,
 } from "react-router"
+import { mockComments } from "@/mock-content/mock-comments"
 
 export async function loader({ params }: LoaderFunctionArgs) {
   try {
     const response = await axios.get("/comments")
-    const comments: BlogComment[] = response.data
+    const comments: BlogComment[] = mockComments
     return { comments }
   } catch (err) {
     console.log(err)
@@ -25,7 +26,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     unique_id: Math.random().toString(),
     blog_slug: params.blogSlug as string,
     comment: data.content as string,
-    commentor: "curret_user", // Current user should be passed in with the request (as JSON)
+    commentor: "current_user", // Current user should be passed in with the request (as JSON)
     created_at: Date.now().toString(),
     updated_at: Date.now().toString(),
   }
