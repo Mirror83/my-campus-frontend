@@ -1,19 +1,19 @@
 //index.tsx
 import type { OutputData } from "@editorjs/editorjs"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { NavBar } from "@/components/home/NavBar"
 import { blogPlaceholder } from "@/mock-content/mock-text"
 import { Button } from "@/components/ui/button"
-import EditorBlock from "@/components/editor/editor"
+import Editor from "@/components/editor/Editor"
 import {
   Dialog,
-  DialogTrigger,
+  DialogClose,
   DialogContent,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogClose,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog"
 
 import {
@@ -37,6 +37,7 @@ import { useAppSelector } from "@/app/hook"
 import { Loader2Icon } from "lucide-react"
 import { useNavigate } from "react-router"
 import LoadingScreen from "@/components/loading-screen/LoadingScreen"
+import { mockTopics } from "@/mock-content/mock-topics"
 
 export const WriteBlog = () => {
   const { user, isLoading } = useAppSelector(state => state.auth)
@@ -65,28 +66,28 @@ export const WriteBlog = () => {
   )
 
   useEffect(() => {
+    async function getTopics() {
+      try {
+        // const topics = await axios.get("api/v1/topic/list")
+        setTopics(mockTopics)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
     getTopics()
   }, [])
-
-  async function getTopics() {
-    try {
-      const topics = await axios.get("api/v1/topic/list")
-      setTopics(topics.data)
-    } catch (err) {
-      console.error(err)
-    }
-  }
 
   useEffect(() => {
     trackTitle()
   }, [data])
 
   function trackTitle() {
-    const firstHeaading = data.blocks.find(block => block.type === "header")
-    if (firstHeaading === undefined) {
+    const firstHeading = data.blocks.find(block => block.type === "header")
+    if (firstHeading === undefined) {
       setTitle("")
     } else {
-      setTitle(firstHeaading.data.text)
+      setTitle(firstHeading.data.text)
     }
   }
 
@@ -163,11 +164,7 @@ export const WriteBlog = () => {
         <NavBar />
         <div className="grid grid-cols-12">
           <div className="p-4 col-span-8">
-            <EditorBlock
-              data={data}
-              onChange={setData}
-              holder="editorjs-container"
-            />
+            <Editor />
           </div>
           <div className="p-4">
             <div className="flex gap-4">
@@ -218,6 +215,7 @@ export const WriteBlog = () => {
                     <CommandItem
                       key={topic.id}
                       onSelect={() => selectTopic(topic)}
+                      onClick={() => selectTopic(topic)}
                       className={selectedTopics.has(topic) ? "font-bold" : ""}
                     >
                       {topic.topic_name}
