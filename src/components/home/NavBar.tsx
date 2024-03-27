@@ -109,7 +109,9 @@ export function UserDropDown({ user }: Props) {
         <DropdownMenuItem>
           <Link to={"/profile"}>Profile</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>Write</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link to={"/write-blog"}>Write</Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
