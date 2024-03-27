@@ -14,10 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import {
-  SignUpFormSchema,
-  SignUpFormValidator,
-} from "@/lib/validators/form-schema"
+import { SignUpFormSchema } from "@/lib/validators/form-schema"
+import type { SignUpFormValidator } from "@/lib/validators/form-schema"
 import { AuthFormLayout } from "@/components/forms/AuthFormLayout"
 import { ShowPassword } from "@/components/forms/ShowPassword"
 
