@@ -19,17 +19,16 @@ function BlogCard({ blog }: BlogCardProps) {
       {/**Textual info */}
       <div className="p-4">
         <div className="flex gap-2 items-center">
-          <AuthorAvatar src="" authorName={blog.authorName} />
+          <AuthorAvatar src="" authorName={blog.author} />
           <Link to={""}>
-            <span className="font-bold text-sm">{blog.authorName}</span>
+            <span className="font-bold text-sm">{blog.author}</span>
           </Link>
         </div>
 
         <h3 className="text-2xl">{blog.title}</h3>
-        {/**To be replaced with renderer, or maybe will think of a better way to handle it. */}
+        {/**To add back the blog post excerpt. */}
         <p className="font-light">
-          {blog.content.substring(0, 100)}...
-          <Link to={""} className="underline">
+          <Link to={`/read-blog/${blog.slug}`} className="underline">
             Read more.
           </Link>
         </p>
