@@ -1,4 +1,4 @@
-export async function usePlugins() {
+export async function loadEditorPlugins() {
   const EditorJS = (await import("@editorjs/editorjs")).default
 
   // @ts-ignore
