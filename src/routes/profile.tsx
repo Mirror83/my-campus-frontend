@@ -4,11 +4,13 @@ import { AuthorAvatar } from "@/components/blog-post/AuthorAvatar"
 import { MyPosts } from "@/components/profile/MyPostsTab"
 import { Button } from "@/components/ui/button"
 import type { Blog } from "@/interfaces/blog"
+import axios from "@/lib/axios"
 import { cn } from "@/lib/utils"
 import { ArrowLeftIcon } from "@radix-ui/react-icons"
 import { Loader2 } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { toast } from "sonner"
 
 enum ProfilePageTabs {
   MyPosts = "My Blog Posts",
@@ -17,9 +19,37 @@ enum ProfilePageTabs {
 }
 
 export function Profile() {
-  const { isAuthenticated, isLoading } = useAppSelector(state => state.auth)
-  const { user } = useAppSelector(state => state.auth)
+  // const { isAuthenticated } = useAppSelector(state => state.auth)
+  const { user, isLoading: isLoadingUser } = useAppSelector(state => state.auth)
   const [activeTab, setActiveTab] = useState(ProfilePageTabs.MyPosts)
+
+  const [blogs, setBlogs] = useState<Blog[]>([])
+
+  useEffect(() => {
+    async function getPostsByUser() {
+      try {
+        const author_type = "user"
+        const response = await axios.get(
+          `/api/v1/blog/${author_type}/${user?.username}`,
+          {
+            headers: {
+              Authorization: `JWT ${localStorage.getItem("access")}`,
+            },
+          },
+        )
+        setBlogs(response.data)
+      } catch (error) {
+        toast.error("Oops!", {
+          description: `An error occurred while getting the blogs for ${user?.username}`,
+        })
+        console.error(error)
+      }
+    }
+
+    if (!isLoadingUser && user) {
+      getPostsByUser()
+    }
+  }, [isLoadingUser, user])
 
   function changeTab(tab: ProfilePageTabs) {
     setActiveTab(tab)
@@ -88,7 +118,11 @@ export function Profile() {
             />
           </div>
           <div className="my-4 bg-slate-50 min-h-[400px]">
-            <ActiveTabContent currentTab={activeTab} blogs={[]} user={user} />
+            <ActiveTabContent
+              currentTab={activeTab}
+              blogs={blogs}
+              user={user}
+            />
           </div>
         </div>
       </div>
