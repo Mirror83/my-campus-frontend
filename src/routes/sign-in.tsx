@@ -6,7 +6,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
@@ -17,8 +17,10 @@ import { toast } from "sonner"
 import { useAppSelector } from "@/app/hook"
 import { useEffect, useState } from "react"
 import {
-  SignInFormSchema,
-  SignInFormValidator,
+  SignInFormSchema
+} from "@/lib/validators/form-schema"
+import type {
+  SignInFormValidator
 } from "@/lib/validators/form-schema"
 import { AuthFormLayout } from "@/components/forms/AuthFormLayout"
 import { ShowPassword } from "@/components/forms/ShowPassword"
@@ -36,8 +38,8 @@ function SignInForm() {
     resolver: zodResolver(SignInFormSchema),
     defaultValues: {
       email: "",
-      password: "",
-    },
+      password: ""
+    }
   })
 
   const [showPassword, setShowPassword] = useState(false)
@@ -49,7 +51,7 @@ function SignInForm() {
   const navigate = useNavigate()
 
   const { signInUser, isLoading } = useSignIn()
-  const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated)
+  const { isAuthenticated, isVerified } = useAppSelector(state => state.auth)
 
   function onSubmit(formValues: SignInFormValidator) {
     console.log(formValues)
@@ -57,11 +59,11 @@ function SignInForm() {
   }
 
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/")
+    if (isAuthenticated && isVerified) {
+      navigate("/profile")
       toast.success("You have successfully signed in.")
     }
-  }, [isAuthenticated, navigate])
+  }, [isAuthenticated, isVerified, navigate])
 
   return (
     <Form {...form}>
