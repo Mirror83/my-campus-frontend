@@ -19,7 +19,10 @@ export function BlogPostMetaData({
   return (
     <div className={className}>
       <div className="flex gap-4 py-2 items-center text-sm">
-        <AuthorAvatar src="https://github.com/shadcn.png" authorName="shadcn" />
+        <AuthorAvatar
+          src="https://github.com/shadcn.png"
+          authorName={authorName}
+        />
         <strong>{authorName}</strong>
         <em>{dateCreated}</em>
       </div>
