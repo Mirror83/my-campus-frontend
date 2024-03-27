@@ -2,32 +2,32 @@ import BlogCard from "@/components/home/BlogCard"
 import { NavBar } from "@/components/home/NavBar"
 import type { Blog } from "@/interfaces/blog"
 import type { Topic } from "@/interfaces/topics"
-import { mockBlogList } from "@/mock-content/home-blog-previews"
+import axios from "@/lib/axios"
 import { mockTopics } from "@/mock-content/mock-topics"
-import { Link } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 
-// TODO: Receive topics as props
+// TODO: Receive topics, clubs from the backend. For now, without pagination
 // TODO: Store current tab using state
-// TODO: Store tabs in a componenet
-// TODO: Make all the components using CSS Grid resopnsive
+// TODO: Store tabs in a component
+// TODO: Make all the components using CSS Grid responsive
 // TODO: Ensure that the topics that are shown in the current tab thing are derived from
 //       what the user likes. Otherwise, just pull up the first 5 topics
-// Brainstorm: Maybe there should be an endpoint that returns the trending topics and the recommended clubs.
 
-// The colours added to the elements here are just so that I can distinguish the two sections
+export async function loader() {
+  const blogs = (await axios.get("api/v1/blog")).data
+
+  return { blogs }
+}
+
 export function Home() {
-  const blogList: Blog[] = mockBlogList
+  const { blogs } = useLoaderData() as { blogs: Blog[] }
+
   const topicList: Topic[] = mockTopics
 
   const trendingTopicsElements = topicList.slice(0, 4).map(topic => (
     <li key={topic.id}>
       <Link to={`topics/${topic.slug}`}>{topic.topic_name}</Link>
     </li>
-  ))
-
-  const blogCards = blogList.map(blog => (
-    // Actual key will be blog.authorSlug
-    <BlogCard blog={blog} key={blog.authorName} />
   ))
 
   return (
@@ -41,14 +41,13 @@ export function Home() {
               {/**Bold represents a chosen element */}
               <div className="font-bold border-b-4 border-black">For you</div>
               <div>Trending</div>
-              <div>Technology</div>
-              <div>Music</div>
-              <div>Inspiration</div>
-              <div>Technology</div>
-              <div>Lifestyle</div>
               <div>Events</div>
             </div>
-            <div className="grid grid-cols-2 my-4 gap-4">{blogCards}</div>
+            <div className="grid grid-cols-2 my-4 gap-4">
+              {blogs.map(blog => (
+                <BlogCard blog={blog} key={blog.slug} />
+              ))}
+            </div>
           </div>
 
           {/**Sidebar */}

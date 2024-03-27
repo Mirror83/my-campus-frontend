@@ -7,7 +7,7 @@ import "./index.css"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { ErrorPage } from "./error-page"
 import { Root } from "./routes/root"
-import { Home } from "./routes/home"
+import { Home, loader as allBlogsLoader } from "./routes/home"
 import { AboutUs } from "@/routes/about-us"
 import { Notifications } from "@/routes/notifications"
 import { Profile } from "@/routes/profile"
@@ -31,6 +31,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: allBlogsLoader,
       },
       {
         path: "/about-us",
