@@ -1,8 +1,7 @@
 import type EditorJS from "@editorjs/editorjs"
 import type { OutputData } from "@editorjs/editorjs"
-import React, { useCallback, useEffect, useRef, useState } from "react"
-import { BASE_URL } from "@/constants"
-import { usePlugins } from "@/lib/editor/usePlugins"
+import { useCallback, useEffect, useRef } from "react"
+import { loadEditorPlugins } from "@/lib/editor/load-editor-plugins"
 
 type Props = {
   data: OutputData
@@ -13,7 +12,7 @@ function ReadOnlyEditor({ data }: Props) {
 
   // Stream in the editor as it is large and will take a while to load
   const initializeEditor = useCallback(async () => {
-    const { EditorJS, Image, List, Header } = await usePlugins()
+    const { EditorJS, Image, List, Header } = await loadEditorPlugins()
 
     // If editor is not initialized
     if (!ref.current) {
@@ -48,7 +47,6 @@ function ReadOnlyEditor({ data }: Props) {
     return () => {
       if (ref.current && ref.current.destroy) {
         ref.current.destroy()
-        ref.current = undefined
       }
     }
   }, [ref, initializeEditor])
