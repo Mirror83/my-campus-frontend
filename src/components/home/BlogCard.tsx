@@ -11,6 +11,8 @@ interface BlogCardProps {
 // TODO: Get author for corresponding post
 // TODO: Include topics in the design
 function BlogCard({ blog }: BlogCardProps) {
+  const excerpt: string = blog.excerpt.slice(0, 100) + "..."
+
   return (
     <div className="grid p-2 outline-1 outline rounded-sm">
       {/**Image */}
@@ -27,6 +29,7 @@ function BlogCard({ blog }: BlogCardProps) {
 
         <h3 className="text-2xl">{blog.title}</h3>
         {/**To add back the blog post excerpt. */}
+        <p>{excerpt}</p>
         <p className="font-light">
           <Link to={`/read-blog/${blog.slug}`} className="underline">
             Read more.
