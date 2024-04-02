@@ -15,14 +15,14 @@ export interface ReceivedBlog {
   created_at: string
   authorType: string
   author_user: string
+  author_club: string
   content: OutputData
+  likes: number
 }
 
 export async function loader({ params }: LoaderFunctionArgs) {
   /** To be modified to call for data from backend using the slug in the url */
   const blogSlug = params.blogSlug
-
-  console.log(blogSlug)
   const response = await axios.get(`api/v1/blog/${blogSlug}`)
   const blog = response.data
 
@@ -47,10 +47,12 @@ export function ReadBlog() {
       <div className="mx-auto">
         <h1 className="px-8 pt-8 text-5xl">{blog.title}</h1>
         <BlogPostMetaData
-          authorName={blog.author_user}
+          authorName={
+            blog.authorType == "user" ? blog.author_user : blog.author_club
+          }
           dateCreated={new Date(blog.created_at).toDateString()}
           totalComments={0}
-          totalLikes={0}
+          totalLikes={blog.likes}
           className="ms-8"
         />
         <ReadOnlyEditor data={blog.content} />
