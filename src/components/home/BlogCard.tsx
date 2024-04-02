@@ -22,7 +22,7 @@ function BlogCard({ blog }: BlogCardProps) {
       <div className="p-4">
         <div className="flex gap-2 items-center">
           <AuthorAvatar src="" authorName={blog.author} />
-          <Link to={""}>
+          <Link to={`/profile/${blog.author_type}/${blog.author}`}>
             <span className="font-bold text-sm">{blog.author}</span>
           </Link>
         </div>
