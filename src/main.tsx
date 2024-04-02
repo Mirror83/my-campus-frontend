@@ -21,6 +21,7 @@ import Comments, {
   loader as commentsLoader,
   action as commentsAction,
 } from "./routes/comments"
+import { ClubProfile, loader as clubProfileLoader } from "./routes/club-profile"
 
 const container = document.getElementById("root")
 
@@ -34,12 +35,16 @@ const router = createBrowserRouter([
         loader: allBlogsLoader,
       },
       {
-        path: "/about-us",
-        element: <AboutUs />,
+        path: "/sign-in",
+        element: <SignIn />,
       },
       {
-        path: "/notifications",
-        element: <Notifications />,
+        path: "/sign-up",
+        element: <SignUp />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
       },
       {
         element: <RequireAuth />,
@@ -55,12 +60,13 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/sign-in",
-        element: <SignIn />,
+        path: "/profile/club/:clubSlug",
+        element: <ClubProfile />,
+        loader: clubProfileLoader,
       },
       {
-        path: "/sign-up",
-        element: <SignUp />,
+        path: "/profile/user/:userSlug",
+        element: <div>User Profile</div>,
       },
       {
         path: "/read-blog/:blogSlug",
@@ -75,6 +81,10 @@ const router = createBrowserRouter([
             // errorElement: <div>Error getting comments</div>,
           },
         ],
+      },
+      {
+        path: "/notifications",
+        element: <Notifications />,
       },
     ],
     errorElement: <ErrorPage />,
