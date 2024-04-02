@@ -1,9 +1,10 @@
+import { AuthorAvatar } from "@/components/blog-post/AuthorAvatar"
 import BlogCard from "@/components/home/BlogCard"
 import { NavBar } from "@/components/home/NavBar"
 import type { Blog } from "@/interfaces/blog"
+import { Club } from "@/interfaces/clubs"
 import type { Topic } from "@/interfaces/topics"
 import axios from "@/lib/axios"
-import { mockTopics } from "@/mock-content/mock-topics"
 import { Link, useLoaderData } from "react-router-dom"
 
 // TODO: Receive topics, clubs from the backend. For now, without pagination
@@ -15,18 +16,22 @@ import { Link, useLoaderData } from "react-router-dom"
 
 export async function loader() {
   const blogs = (await axios.get("api/v1/blog")).data
+  const topics = (await axios.get("api/v1/topics/trending")).data
+  const clubs = (await axios.get("api/v1/club/list")).data
 
-  return { blogs }
+  return { blogs, topics, clubs }
 }
 
 export function Home() {
-  const { blogs } = useLoaderData() as { blogs: Blog[] }
+  const { blogs, topics, clubs } = useLoaderData() as {
+    blogs: Blog[]
+    topics: Topic[]
+    clubs: Club[]
+  }
 
-  const topicList: Topic[] = mockTopics
-
-  const trendingTopicsElements = topicList.slice(0, 4).map(topic => (
-    <li key={topic.id}>
-      <Link to={`topics/${topic.slug}`}>{topic.topic_name}</Link>
+  const trendingTopicsElements = topics.slice(0, 4).map(topic => (
+    <li key={topic.id} className="list-decimal m-2 underline">
+      <Link to={`/topics/${topic.slug}`}>{topic.topic_name}</Link>
     </li>
   ))
 
@@ -58,20 +63,16 @@ export function Home() {
             </div>
             <div className="p-4 m-4">
               <h3 className="text-2xl">Recommended Clubs</h3>
-              <p className="text-sm">Based on your usage and interests</p>
               <ul className="mt-4">
-                <Link to="">
-                  <li>JKUAT Gavel Club</li>
-                </Link>
-                <Link to="">
-                  <li>Architecture Students Association</li>
-                </Link>
-                <Link to="">
-                  <li>Karate Club</li>
-                </Link>
-                <Link to="">
-                  <li>Kipaji Club</li>
-                </Link>
+                {clubs.map((club, i) => (
+                  <Link
+                    to={`/profile/club/${club.slug}`}
+                    className="flex gap-2 items-center"
+                  >
+                    <AuthorAvatar authorName={club.club_name} src="" />
+                    <li key={i}>{club.club_name}</li>
+                  </Link>
+                ))}
               </ul>
             </div>
           </div>
