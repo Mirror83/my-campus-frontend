@@ -1,4 +1,4 @@
-import { extractInitials } from "@/lib/utils"
+import { cn, extractInitials } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 interface AuthorAvatarProps {
@@ -13,7 +13,7 @@ export function AuthorAvatar({
   className,
 }: AuthorAvatarProps) {
   return (
-    <Avatar className={className}>
+    <Avatar className={cn(className, "font-bold")}>
       <AvatarImage src={src} alt={`@${authorName}`} />
       <AvatarFallback>{extractInitials(authorName)}</AvatarFallback>
     </Avatar>
