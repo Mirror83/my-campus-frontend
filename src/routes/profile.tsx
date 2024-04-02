@@ -117,7 +117,7 @@ export function Profile() {
               onChangeTab={changeTab}
             />
           </div>
-          <div className="my-4 bg-slate-50 min-h-[400px]">
+          <div className="my-4 bg-slate-50 min-h-[500px]">
             <ActiveTabContent
               currentTab={activeTab}
               blogs={blogs}
@@ -161,14 +161,60 @@ function ActiveTabContent({ currentTab, blogs, user }: CurrentTabProps) {
   if (currentTab === ProfilePageTabs.Actions) {
     return <div>Actions</div>
   } else {
-    return (
-      <div className="flex items-center justify-center h-full">
-        {user && (
-          <>
-            <p className="text-3xl italic">Coming soon</p>
-          </>
-        )}
-      </div>
-    )
+    return <ProfileInfo user={user} />
   }
+}
+
+interface ProfileInfoProps {
+  user: user | undefined | null
+}
+
+function ProfileInfo({ user }: ProfileInfoProps) {
+  return (
+    <div className="h-full p-8">
+      {user && (
+        <>
+          <section>
+            <h3 className="font-bold text-xl mb-4">Bio</h3>
+            <form>
+              <textarea
+                rows={2}
+                cols={80}
+                maxLength={100}
+                placeholder="Enter a short summary about yourself (max 100 words)..."
+                className="p-2"
+              />
+            </form>
+            <Button className="my-2">Submit</Button>
+          </section>
+
+          <section className="mt-8">
+            <h3 className="font-bold text-xl mb-4">Topics</h3>
+            <p>Here is where you can choose the topics that matter to you.</p>
+            <p className="text-sm">
+              These will be used to personalize your experience on the site
+            </p>
+            {user?.topics?.length ? (
+              user.topics.map(topic => <div>{topic}</div>)
+            ) : (
+              <div className="py-4">
+                <p className="italic">
+                  You don't have any topics selected currently.
+                </p>
+                <Button className="my-2">Select Topics</Button>
+              </div>
+            )}
+          </section>
+
+          <section className="mt-8">
+            <h3 className="font-bold text-xl mb-4">Account Management</h3>
+            <div className="flex flex-wrap gap-10">
+              <Button>Change username</Button>
+              <Button variant={"destructive"}>Delete Account</Button>
+            </div>
+          </section>
+        </>
+      )}
+    </div>
+  )
 }
