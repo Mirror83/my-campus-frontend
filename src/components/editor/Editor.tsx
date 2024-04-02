@@ -4,6 +4,12 @@ import Header from "@editorjs/header"
 import Image from "@editorjs/image"
 // @ts-ignore
 import List from "@editorjs/list"
+// @ts-ignore
+import InlineCode from "@editorjs/inline-code"
+// @ts-ignore
+import Code from "@editorjs/code"
+// @ts-ignore
+import Table from "@editorjs/table"
 
 import EditorJS, { OutputData } from "@editorjs/editorjs"
 
@@ -33,6 +39,12 @@ function Editor({ editorData, setEditorData }: EditorProps) {
         tools: {
           header: Header,
           list: List,
+          code: Code,
+          inlineCode: {
+            class: InlineCode,
+            shortcut: "CMD+SHIFT+M",
+          },
+          table: Table,
           image: {
             class: Image,
             config: {

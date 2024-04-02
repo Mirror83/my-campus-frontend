@@ -10,5 +10,14 @@ export async function loadEditorPlugins() {
   // @ts-ignore
   const List = (await import("@editorjs/list")).default
 
-  return { EditorJS, Image, Header, List }
+  // @ts-ignore
+  const Code = (await import("@editorjs/code")).default
+
+   // @ts-ignore
+  const InlineCode = (await import("@editorjs/inline-code")).default
+
+  // @ts-ignore
+  const Table = (await import("@editorjs/table")).default
+
+  return { EditorJS, Image, Header, List, Code, InlineCode, Table }
 }

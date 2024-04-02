@@ -12,7 +12,8 @@ function ReadOnlyEditor({ data }: Props) {
 
   // Stream in the editor as it is large and will take a while to load
   const initializeEditor = useCallback(async () => {
-    const { EditorJS, Image, List, Header } = await loadEditorPlugins()
+    const { EditorJS, Image, List, Header, Code, InlineCode, Table } =
+      await loadEditorPlugins()
 
     // If editor is not initialized
     if (!ref.current) {
@@ -29,6 +30,10 @@ function ReadOnlyEditor({ data }: Props) {
           header: Header,
           list: List,
           image: Image,
+          code: Code,
+          inlineCode: {
+            class: InlineCode,
+          },
         },
       })
       ref.current = editor
