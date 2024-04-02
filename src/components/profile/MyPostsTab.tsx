@@ -11,11 +11,14 @@ type Props = {
 export function MyPosts({ blogs }: Props) {
   if (blogs.length) {
     return (
-      <div className="flex flex-wrap flex-col gap-4">
-        <Button className="mb-4">
-          <Plus className="me-2" />
-          <Link to="/write-blog">Add one</Link>
-        </Button>
+      <div className="flex flex-wrap flex-col gap-4 p-8">
+        <Link to="/write-blog">
+          <Button className="mb-4">
+            <Plus className="me-2" />
+            <p>Add one</p>
+          </Button>
+        </Link>
+
         {blogs.map((blog, i) => (
           <BlogCard blog={blog} key={i} />
         ))}
