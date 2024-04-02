@@ -34,12 +34,12 @@ export function NavBar({ className }: NavBarProps) {
   const GuestLinks = () => (
     <>
       <li>
-        <Button variant={"link"}>
+        <Button variant={"link"} className="text-white">
           <Link to={`/sign-up`}>Sign up</Link>
         </Button>
       </li>
       <li>
-        <Button variant={"link"}>
+        <Button variant={"link"} className="text-white">
           <Link to={`/sign-in`}>Sign in</Link>
         </Button>
       </li>
@@ -49,7 +49,7 @@ export function NavBar({ className }: NavBarProps) {
   const AuthLinks = () => (
     <>
       <li>
-        <Button variant={"link"} onClick={handleLogout}>
+        <Button className="text-white" variant={"link"} onClick={handleLogout}>
           Sign Out
         </Button>
       </li>
@@ -60,12 +60,12 @@ export function NavBar({ className }: NavBarProps) {
     <div
       className={cn(
         className,
-        "flex items-center w-full justify-between px-8 py-4 bg-slate-50",
+        "flex items-center w-full justify-between px-8 py-4 shadow-md bg-[#242748] text-white",
       )}
     >
       <div>
         <Link to="/" className="flex gap-2 items-center">
-          <GraduationCapIcon />
+          <GraduationCapIcon color="white" />
           <span className="text-xl font-bold">My Campus</span>
         </Link>
       </div>
@@ -74,7 +74,7 @@ export function NavBar({ className }: NavBarProps) {
           <ul className="flex gap-2">
             {isAuthenticated ? <AuthLinks /> : <GuestLinks />}
             <li>
-              <Button variant={"link"}>
+              <Button variant={"link"} className="text-white">
                 <Link to={`#`}>About us</Link>
               </Button>
             </li>
@@ -99,6 +99,7 @@ export function UserDropDown({ user }: Props) {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <AuthorAvatar
+          className="bg-white text-black"
           src={""}
           authorName={`${user.first_name} ${user.last_name}`}
         />
