@@ -7,6 +7,7 @@ export interface Blog {
     excerpt: string
     imageUrl: string
     slug: string
+    author_type: string
     author: string
     likes: number
     followers: number
