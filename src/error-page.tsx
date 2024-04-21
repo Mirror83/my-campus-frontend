@@ -14,12 +14,14 @@ export function ErrorPage() {
           Oops!
         </h1>
         <p>Something has gone wrong</p>
-        <p className={"mb-5"}>
+        <p className={"mb-5 text-4xl font-medium text-gray-800"}>
           <i>
             {error.status}. {error.statusText || error.message}
           </i>
         </p>
-        <Link to={"/"}>Back Home</Link>
+        <Link className="mt-4 text-xl text-blue-600 hover:underline" to={"/"}>
+          Back Home
+        </Link>
       </div>
     </div>
   )
